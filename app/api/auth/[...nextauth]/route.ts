@@ -1,11 +1,10 @@
 import prisma from "@/app/libs/prismadb"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { AuthOptions } from "next-auth"
+import NextAuth, { AuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt"
-import NextAuth from "next-auth/next"
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -35,12 +34,8 @@ export const authOptions: AuthOptions = {
           }
         })
 
-        if (!user) {
-          throw new Error('No account with given email')
-        }
-
-        if (!user.hashedPassword) {
-          throw new Error('Account already used with another provider')
+        if (!user || !user.hashedPassword) {
+          throw new Error('Invalid credentials')
         }
 
         const isCorrect = await bcrypt.compare(
@@ -49,18 +44,18 @@ export const authOptions: AuthOptions = {
         )
 
         if (!isCorrect) {
-          throw new Error('Invalid password')
+          throw new Error('Invalid credentials')
         }
 
         return user
       }
     })
   ],
+  debug: process.env.NODE_ENV === 'development',
   session: {
     strategy: 'jwt'
   },
-  secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === 'development'
+  secret: process.env.NEXTAUTH_SECRET
 }
 
 const handler = NextAuth(authOptions)
