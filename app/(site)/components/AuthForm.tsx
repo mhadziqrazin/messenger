@@ -74,7 +74,21 @@ const AuthForm = () => {
   const socialAction = (action: string) => {
     setIsLoading(true)
 
-    // nextauth social sign in
+    signIn(action, { redirect: false })
+    .then(callback => {
+      if (callback?.error) {
+        toast.error(callback.error)
+      }
+
+      if (callback?.ok && !callback.error) {
+        toast.success('Logged in!')
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      toast.error('Loging failed')
+    })
+    .finally(() => setIsLoading(false))
   }
 
   return (
