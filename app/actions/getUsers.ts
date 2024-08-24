@@ -8,13 +8,13 @@ export default async function getUsers() {
 
   try {
     const users = await prisma.user.findMany({
-      orderBy: {
-        createdAt: 'desc'
-      },
       where: {
         NOT: {
           email: session.user.email
         }
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     })
 
