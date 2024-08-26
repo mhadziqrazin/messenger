@@ -22,13 +22,13 @@ const Body: React.FC<BodyProps> = (props) => {
 
   return (
     <div className="flex-1 overflow-y-auto">
-    {messages.map((message, i) => (
-      <MessageBox
-        key={message.id}
-        isLast={i === messages.length - 1}
-        data={message}
-      />
-    ))}
+      {messages.map((message, i) => (
+        <MessageBox
+          key={message.id}
+          isLast={i === messages.length - 1}
+          data={message}
+        />
+      ))}
       <div ref={bottomRef} className="pt-24" />
     </div>
   )
