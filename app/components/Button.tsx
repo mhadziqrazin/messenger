@@ -3,7 +3,7 @@
 import clsx from "clsx"
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  fullWidth: boolean
+  fullWidth?: boolean
   secondary?: boolean
   danger?: boolean
 }
