@@ -1,6 +1,6 @@
 // app/api/pusher/auth/route.ts
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/libs/authOptions";
 import { pusherServer } from "@/app/libs/pusher";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
