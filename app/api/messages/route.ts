@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         id: conversationId
       },
       data: {
-        lastMessageAt: new Date(),
+        lastMessageAt: newMessage.createdAt,
         messages: {
           connect: { id: newMessage.id }
         },
@@ -63,7 +63,8 @@ export async function POST(request: Request) {
     updatedConversation.users.map((user) => {
       pusherServer.trigger(user.email!, 'conversation:update', {
         id: conversationId,
-        messages: [lastMessage]
+        messages: [lastMessage],
+        lastMessageAt: lastMessage.createdAt
       })
     })
 
