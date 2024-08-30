@@ -26,7 +26,6 @@ const ConversationBox: React.FC<ConversationBoxProps> = (props) => {
 
   const lastMessage = useMemo(() => {
     const messages = props.data.messages || []
-    console.log('halo', messages)
     return messages[messages.length - 1]
   }, [props.data.messages])
 

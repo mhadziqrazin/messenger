@@ -55,7 +55,6 @@ const ConversationList: React.FC<ConversationListProps> = (props) => {
 
           return currentConvo
         }).sort((a, b) => new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime())
-        console.log(updatedConvo)
         return updatedConvo
       })
     }
